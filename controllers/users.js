@@ -1,5 +1,12 @@
 var user= require('../models/Users');
 
+
+
+exports.getLogin=function(req,res){
+    res.send("...redirecting to home");
+    
+}
+
 exports.postLogin=function(req,res){
     for(var i=0;i<=userSchema.user.length ;i++)
     {

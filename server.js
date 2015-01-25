@@ -6,7 +6,7 @@ var bodyParser= require('body-parser');
 var mongoose=require('mongoose');
 
 var usersController= require('./controllers/users');
-var homeController= require('.//controllers/home');
+var homeController= require('./controllers/home');
 
 app.set('views',path.join(__dirname,'views'));
 app.set('view engine','html');
@@ -27,11 +27,21 @@ mongoose.connection.on('error',function(){
 
 
 app.get('/',homeController.index);
-app.post('/',usersController.postLogin);
+app.get('/signin',usersController.getLogin);
+app.post('/signin',usersController.postLogin);
 app.get('/signup',usersController.signup);
 app.post('/signup',usersController.postSignup);
 app.get('/user/:id',homeController.home);
+app.get('/home',homeController.home);
 
-
+app.get('/headlines',homeController.headlines);
+app.get('/local',homeController.local);
+app.get('/business',homeController.business);
+app.get('/entertainment',homeController.entertainment);
+app.get('/education',homeController.education);
+app.get('/technology',homeController.technology);
+app.get('/national',homeController.national);
+app.get('/world',homeController.world);
+app.get('/sports',homeController.sports);
 
 app.listen(3000);
