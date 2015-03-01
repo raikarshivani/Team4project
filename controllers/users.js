@@ -1,19 +1,49 @@
+var mongoose = require('mongoose');
+var express = require('express');
+
+mongoose.connect('mongodb://localhost:27017/tweetnews/');
+mongoose.connection.on('error',function(){
+    console.error('MongoDb is not connected. Check if Mongod is running.');
+});
+
+
+
 var user= require('../models/Users');
 
-
-
-exports.getLogin=function(req,res){
-    res.send("...redirecting to home");
-    
+exports.index= function(req,res){
+    res.render('index',{
+           title:"Welcome to tweetnews!"
+    });
 }
 
-exports.postLogin=function(req,res){
-    for(var i=0;i<=userSchema.user.length ;i++)
+exports.checkUser = function(req,res){
+    var userAcc = new user();
+    usr.find(req.body.uses,function(err,user){
+        if(err)
+            res.send(err);
+        for(var u in user)
+        {
+            if(req.body.uses == user[u].userid && req.body.pass == user[u].password){
+                res.json(user[u].password);
+            }
+            else if(req.body.uses == user[u].userid && req.body.pass != user[u].password)
+            {
+                res.send("Invalid Password...");
+                res.render('login');
+            }
+        }
+    });
+}
+
+
+exports.postSignin=function(req,res){
+    for(var u in user)
     {
-        if((req.body.username==user.username)&&(req.body.password==user.password))
+        console.log("checkuser"+u);
+        if((req.body.username==user[u].username)&&(req.body.password==user[u].password))
             res.render('home');
         else
-            res.render('errLogin');
+            res.send('errLogin');
     }
     
 }
@@ -23,12 +53,12 @@ exports.signup=function(req,res){
 }
 
 exports.postSignup=function(req,res){
-    var user=new user();
-    user.name =req.body.name;
-    user.username =req.body.username;
-    user.email =req.body.email;
-    user.password =req.body.password;
-    user.categories=req.body.categories;
-    user.save();
+    var usr =new user();
+    usr.name =req.body.name;
+    usr.username =req.body.username;
+    usr.email =req.body.email;
+    usr.password =req.body.password;
+    usr.save();
+    res.render('postSignup');
 }
 

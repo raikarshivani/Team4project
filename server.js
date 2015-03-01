@@ -7,6 +7,7 @@ var mongoose=require('mongoose');
 
 var usersController= require('./controllers/users');
 var homeController= require('./controllers/home');
+var usersModel= require('./models/Users')
 
 app.set('views',path.join(__dirname,'views'));
 app.set('view engine','html');
@@ -19,16 +20,16 @@ app.use(bodyParser.urlencoded({
 
 app.use(express.static('public'));
 
-mongoose.connect('mongodb://localhost:27017/classpro/');
+mongoose.connect('mongodb://localhost:27017/tweetnews/');
 mongoose.connection.on('error',function(){
     console.error("Mongodb is not connected. Check if mongod is running")
     
 });
 
 
-app.get('/',homeController.index);
-app.get('/signin',usersController.getLogin);
-app.post('/signin',usersController.postLogin);
+app.get('/',usersController.index);
+app.post('/',usersController.postSignin);
+// app.post('/signin',usersController.postLogin);
 app.get('/signup',usersController.signup);
 app.post('/signup',usersController.postSignup);
 app.get('/user/:id',homeController.home);

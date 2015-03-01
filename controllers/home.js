@@ -1,8 +1,4 @@
-exports.index= function(req,res){
-    res.render('index',{
-           title:"Welcome to tweetnews!"
-    });
-}
+
 
 
 exports.home= function(req,res){
@@ -18,7 +14,7 @@ exports.home= function(req,res){
 
 
 exports.headlines= function(req,res){
-    res.render('headlines',{});
+    res.render('./categories/headlines',{});
 }
 
 exports.local= function(req,res){
@@ -42,7 +38,7 @@ exports.technology= function(req,res){
 }
 
 exports.national= function(req,res){
-    res.render('national',{});
+    res.render('./categories/national',{});
 }
 
 exports.world= function(req,res){
